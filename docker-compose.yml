@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prompt-finops-app
+    restart: always
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000"
+    networks:
+      - appnet
+
+networks:
+  appnet:
