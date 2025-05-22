@@ -158,7 +158,7 @@ function IntegratedCostCalculator() {
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="w-full p-2 border rounded-md"
+                className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
               >
                 {MODEL_PRICING.map((model) => (
                   <option key={model.model} value={model.model}>
@@ -177,9 +177,8 @@ function IntegratedCostCalculator() {
                   type="number"
                   value={inputTokens}
                   onChange={(e) => setInputTokens(Number(e.target.value))}
-                  className={`w-full p-2 border rounded-md ${
-                    tokenResult ? "bg-gray-50" : ""
-                  }`}
+                  className={`dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md ${tokenResult ? "bg-gray-50" : ""
+                    }`}
                   readOnly={!!tokenResult}
                 />
                 {tokenResult && (
@@ -188,7 +187,7 @@ function IntegratedCostCalculator() {
                       setInputTokens(initialInputTokensValue);
                       setOutputTokens(initialInputTokensValue / 2);
                     }}
-                    className="ml-2 p-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                    className="dark:bg-slate-700 dark:border-slate-500 ml-2 p-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
                     title="Reset to token count"
                   >
                     Reset
@@ -205,7 +204,7 @@ function IntegratedCostCalculator() {
                 type="number"
                 value={outputTokenRatio}
                 onChange={(e) => setOutputTokenRatio(Number(e.target.value))}
-                className="w-full p-2 border rounded-md"
+                className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
                 step="0.1"
                 min="0.1"
                 max="5"
@@ -220,7 +219,7 @@ function IntegratedCostCalculator() {
                 type="number"
                 value={outputTokens}
                 onChange={(e) => setOutputTokens(Number(e.target.value))}
-                className="w-full p-2 border rounded-md"
+                className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
               />
             </div>
 
@@ -232,7 +231,7 @@ function IntegratedCostCalculator() {
                 type="number"
                 value={apiCalls}
                 onChange={(e) => setApiCalls(Number(e.target.value))}
-                className="w-full p-2 border rounded-md"
+                className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
               />
             </div>
 
@@ -243,7 +242,7 @@ function IntegratedCostCalculator() {
               <select
                 value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
-                className="w-full p-2 border rounded-md"
+                className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
               >
                 <option value="hourly">Hourly</option>
                 <option value="daily">Daily</option>
