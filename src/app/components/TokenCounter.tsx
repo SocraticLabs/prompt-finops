@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { MetricsDisplay } from "./MetricsDisplay";
 import { ITokenizationMetrics } from "@/types/types";
+import { trackGAEvent } from "../utils/googleAnalytics";
 
 interface ITokenCounterFormProps {
   onSubmit: (inputText: string, selectedTokenizer: string) => void;
@@ -17,6 +18,15 @@ export function TokenCounterForm({ onSubmit }: ITokenCounterFormProps) {
     if (inputText.trim()) {
       onSubmit(inputText, selectedTokenizer);
     }
+  };
+
+  const selectTokenizer = (tokenizer: string) => {
+    setSelectedTokenizer(tokenizer);
+    trackGAEvent("tokenizer_selected", {
+      event_category: "Cost Calculator",
+      event_label: "Tokenizer Changed",
+      tokenizer: tokenizer,
+    });
   };
 
   return (
@@ -39,7 +49,7 @@ export function TokenCounterForm({ onSubmit }: ITokenCounterFormProps) {
         </label>
         <select
           value={selectedTokenizer}
-          onChange={(e) => setSelectedTokenizer(e.target.value)}
+          onChange={(e) => selectTokenizer(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
         >
           <option value="cl100k_base">cl100k_base (GPT-4, ChatGPT)</option>

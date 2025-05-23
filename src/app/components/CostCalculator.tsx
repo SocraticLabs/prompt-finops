@@ -13,6 +13,7 @@ import { Calculator, DollarSign, TrendingUp, Zap } from "lucide-react";
 import { TokenCounterForm, TokenCounterResult } from "./TokenCounter";
 import { MODEL_PRICING } from "@/constants/pricing";
 import { ITokenizationMetrics } from "@/types/types";
+import { trackGAEvent } from "../utils/googleAnalytics";
 
 interface ITokenCountResult {
   inputText: string;
@@ -47,6 +48,14 @@ function IntegratedCostCalculator() {
     selectedTokenizer: string
   ) => {
     setIsLoading(true);
+    console.log("inside handleTokenizerSubmit before");
+    trackGAEvent("tokenizer_submit", {
+      event_category: "Cost Calculator",
+      event_label: "Tokenizer Analysis Requested",
+      tokenizer: selectedTokenizer,
+      text_length: inputText.length,
+    });
+    console.log("inside handleTokenizerSubmit after");
 
     try {
       const response = await fetch("/api/tokenizer", {
@@ -230,7 +239,14 @@ function IntegratedCostCalculator() {
               <input
                 type="number"
                 value={apiCalls}
-                onChange={(e) => setApiCalls(Number(e.target.value))}
+                onChange={(e) => {
+                  setApiCalls(Number(e.target.value));
+                  trackGAEvent("llm_api_calls_updated", {
+                    event_category: "Cost Calculator",
+                    event_label: "LLM API Calls Number Changed",
+                    tokenizer: e.target.value,
+                  });
+                }}
                 className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
               />
             </div>
