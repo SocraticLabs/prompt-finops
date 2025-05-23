@@ -88,7 +88,7 @@ export function TokenCounterResult({ result }: { result: ITokenCountResult }) {
           <span className="font-medium">Input Text:</span>{" "}
           <span className="text-sm text-gray-600 dark:text-gray-400">
             {result.inputText.length > 100
-              ? `${result.inputText.substring(0, 100)}...`
+              ? `${result.inputText.substring(0, 20)}...`
               : result.inputText}
           </span>
         </p>
