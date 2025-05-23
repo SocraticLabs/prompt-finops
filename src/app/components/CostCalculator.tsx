@@ -261,7 +261,7 @@ function IntegratedCostCalculator() {
             <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
               <DollarSign className="w-6 h-6 mb-2 text-blue-600 dark:text-blue-400" />
               <h4 className="font-medium">Cost per Call</h4>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold overflow-hidden whitespace-nowrap text-ellipsis">
                 ${costs.costPerCall.toFixed(4)}
               </p>
             </div>
@@ -269,7 +269,7 @@ function IntegratedCostCalculator() {
             <div className="p-4 bg-green-50 dark:bg-green-900 rounded-lg">
               <Calculator className="w-6 h-6 mb-2 text-green-600 dark:text-green-400" />
               <h4 className="font-medium">Total Cost ({timeframe})</h4>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold overflow-hidden whitespace-nowrap text-ellipsis">
                 ${costs.totalCost.toFixed(2)}
               </p>
             </div>
@@ -277,7 +277,7 @@ function IntegratedCostCalculator() {
             <div className="p-4 bg-purple-50 dark:bg-purple-900 rounded-lg">
               <TrendingUp className="w-6 h-6 mb-2 text-purple-600 dark:text-purple-400" />
               <h4 className="font-medium">Input Cost</h4>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold overflow-hidden whitespace-nowrap text-ellipsis">
                 ${costs.inputCost.toFixed(4)}
               </p>
             </div>
@@ -285,7 +285,7 @@ function IntegratedCostCalculator() {
             <div className="p-4 bg-orange-50 dark:bg-orange-900 rounded-lg">
               <Zap className="w-6 h-6 mb-2 text-orange-600 dark:text-orange-400" />
               <h4 className="font-medium">Output Cost</h4>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold overflow-hidden whitespace-nowrap text-ellipsis">
                 ${costs.outputCost.toFixed(4)}
               </p>
             </div>
