@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^15.1.8",
     "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^12.5.0",
     "lucide-react": "^0.479.0",

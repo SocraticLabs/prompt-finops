@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const baseUrl = "https://promptfinops.com";
@@ -47,6 +48,7 @@ export default function RootLayout({
           {children}
         </div>
       </body>
+      <GoogleAnalytics gaId="G-6E7LZ5KTEB" />
     </html>
   );
 }
