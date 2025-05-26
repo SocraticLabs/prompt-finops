@@ -1,10 +1,5 @@
 import { Info } from "lucide-react";
-// import {
-//   Tooltip,
-//   TooltipProvider,
-//   TooltipTrigger,
-//   TooltipContent,
-// } from "@/components/ui.";
+
 import {
   ResponsiveContainer,
   BarChart,
@@ -13,13 +8,16 @@ import {
   YAxis,
   Tooltip as RechartsTooltip,
 } from "recharts";
+
 import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
 } from "./ui/Tooltip";
+
 import { ITokenizationMetrics } from "@/types/types";
+import { useState } from "react";
 
 export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
   const tokenLengthChartData = Object.entries(metrics.tokenLengthDistribution)
@@ -44,15 +42,18 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
       "Amount of memory consumed during tokenization, measured in kilobytes.",
   };
 
-  const renderTooltip = (key: keyof typeof metricTooltips) => (
-    <Tooltip>
-      <TooltipTrigger>
+  const MetricTooltip = ({ metricKey }: { metricKey: keyof typeof metricTooltips }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    return (<Tooltip>
+      <TooltipTrigger setIsVisible={setIsVisible}>
         <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer" />
       </TooltipTrigger>
 
-      <TooltipContent>{metricTooltips[key]}</TooltipContent>
-    </Tooltip>
-  );
+      <TooltipContent isVisible={isVisible}>{metricTooltips[metricKey]}</TooltipContent>
+    </Tooltip>)
+  }
+
 
   return (
     <TooltipProvider>
@@ -60,7 +61,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div className="p-3 bg-blue-50 dark:bg-blue-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Compression Ratio {renderTooltip("compressionRatio")}
+              Compression Ratio <MetricTooltip metricKey="compressionRatio" />
             </h4>
             <p className="text-xl font-semibold">
               {metrics.compressionRatio.toFixed(2)}
@@ -72,7 +73,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
 
           <div className="p-3 bg-green-50 dark:bg-green-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Avg Token Length {renderTooltip("avgTokenLength")}
+              Avg Token Length <MetricTooltip metricKey="avgTokenLength" />
             </h4>
             <p className="text-xl font-semibold">
               {metrics.avgTokenLength.toFixed(2)}
@@ -84,7 +85,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
 
           <div className="p-3 bg-purple-50 dark:bg-purple-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Unique Token Ratio {renderTooltip("uniqueTokenRatio")}
+              Unique Token Ratio <MetricTooltip metricKey="uniqueTokenRatio" />
             </h4>
             <p className="text-xl font-semibold">
               {(metrics.uniqueTokenRatio * 100).toFixed(1)}%
@@ -93,7 +94,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
 
           <div className="p-3 bg-orange-50 dark:bg-orange-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Processing Time {renderTooltip("processingTimeMs")}
+              Processing Time <MetricTooltip metricKey="processingTimeMs" />
             </h4>
             <p className="text-xl font-semibold">
               {metrics.processingTimeMs.toFixed(1)}
@@ -105,7 +106,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
 
           <div className="p-3 bg-red-50 dark:bg-red-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Special Chars {renderTooltip("specialCharTokens")}
+              Special Chars <MetricTooltip metricKey="specialCharTokens" />
             </h4>
             <p className="text-xl font-semibold">{metrics.specialCharTokens}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">tokens</p>
@@ -113,7 +114,7 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
 
           <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg text-center relative">
             <h4 className="text-sm font-medium flex items-center justify-center gap-2">
-              Memory Usage {renderTooltip("memoryUsageBytes")}
+              Memory Usage <MetricTooltip metricKey="memoryUsageBytes" />
             </h4>
             <p className="text-xl font-semibold">
               {(metrics.memoryUsageBytes / 1024).toFixed(1)}
