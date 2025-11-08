@@ -49,9 +49,9 @@ function IntegratedCostCalculator() {
   ) => {
     setIsLoading(true);
     console.log("inside handleTokenizerSubmit before");
-    trackGAEvent("tokenizer_submit", {
+    trackGAEvent("prompt_submit", {
       event_category: "Cost Calculator",
-      event_label: "Tokenizer Analysis Requested",
+      event_label: "Submit Prompt to Tokenizer Analysis",
       tokenizer: selectedTokenizer,
       text_length: inputText.length,
     });
@@ -186,8 +186,9 @@ function IntegratedCostCalculator() {
                   type="number"
                   value={inputTokens}
                   onChange={(e) => setInputTokens(Number(e.target.value))}
-                  className={`dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md ${tokenResult ? "bg-gray-50" : ""
-                    }`}
+                  className={`dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md ${
+                    tokenResult ? "bg-gray-50" : ""
+                  }`}
                   readOnly={!!tokenResult}
                 />
                 {tokenResult && (
