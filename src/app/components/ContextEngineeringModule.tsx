@@ -83,12 +83,6 @@ export default function ContextEngineeringModule({
     }
   };
 
-  useEffect(() => {
-    if (tokenResult) {
-      setOutputTokens(Math.ceil(tokenResult.tokenCount * outputTokenRatio));
-    }
-  }, [tokenResult, outputTokenRatio]);
-
   const calculateCosts = () => {
     const model = MODEL_PRICING.find((m) => m.model === selectedModel)!;
     const inputCost = (inputTokens / 1000) * model.inputPrice;
@@ -251,7 +245,13 @@ export default function ContextEngineeringModule({
               <input
                 type="number"
                 value={outputTokenRatio}
-                onChange={(e) => setOutputTokenRatio(Number(e.target.value))}
+                onChange={(e) => {
+                  const newRatio = Number(e.target.value);
+                  setOutputTokenRatio(newRatio);
+                  if (tokenResult) {
+                    setOutputTokens(Math.ceil(tokenResult.tokenCount * newRatio));
+                  }
+                }}
                 className="dark:bg-slate-700 dark:border-slate-500 w-full p-2 border rounded-md"
                 step="0.1"
                 min="0.1"
