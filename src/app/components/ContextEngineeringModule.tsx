@@ -139,6 +139,8 @@ export default function ContextEngineeringModule({
     const outputCost = (outputTokens / 1000) * model.outputPrice;
     const costPerCall = inputCost + outputCost;
 
+    const monthlyMultiplier = 24 * 30;
+
     onMetricsChange({
       contextWindowUtilization:
         ((inputTokens + outputTokens) / model.contextWindow) * 100,
@@ -151,7 +153,7 @@ export default function ContextEngineeringModule({
       totalInputTokens: inputTokens,
       totalOutputTokens: outputTokens,
       costPerCall,
-      monthlyCost: costPerCall * apiCalls,
+      monthlyCost: costPerCall * apiCalls * monthlyMultiplier,
     });
   }, [
     inputTokens,
