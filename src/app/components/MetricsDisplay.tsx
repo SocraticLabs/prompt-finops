@@ -19,6 +19,32 @@ import {
 import { ITokenizationMetrics } from "@/types/types";
 import { useState } from "react";
 
+const metricTooltips = {
+  compressionRatio:
+    "Measures how efficiently the text is compressed into tokens. Lower values mean fewer tokens and reduced costs.",
+  avgTokenLength:
+    "Indicates the average character length of each token. Longer tokens imply more compact tokenization.",
+  uniqueTokenRatio:
+    "Shows the proportion of unique tokens relative to total tokens. Higher ratios reflect more diverse tokenization.",
+  processingTimeMs:
+    "Time (in milliseconds) taken to process and tokenize the input text.",
+  specialCharTokens:
+    "Number of tokens that contain special characters like punctuation or symbols.",
+  memoryUsageBytes:
+    "Estimated memory consumed during tokenization, measured in bytes (displayed as KB).",
+
+function MetricTooltip({ metricKey }: { metricKey: keyof typeof metricTooltips }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (<Tooltip>
+    <TooltipTrigger setIsVisible={setIsVisible}>
+      <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer" />
+    </TooltipTrigger>
+
+    <TooltipContent isVisible={isVisible}>{metricTooltips[metricKey]}</TooltipContent>
+  </Tooltip>)
+}
+
 export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
   const tokenLengthChartData = Object.entries(metrics.tokenLengthDistribution)
     .map(([length, count]) => ({
@@ -26,33 +52,6 @@ export function MetricsDisplay({ metrics }: { metrics: ITokenizationMetrics }) {
       count,
     }))
     .sort((a, b) => a.length - b.length);
-
-  const metricTooltips = {
-    compressionRatio:
-      "Measures how efficiently the text is compressed into tokens. Lower values mean fewer tokens and reduced costs.",
-    avgTokenLength:
-      "Indicates the average character length of each token. Longer tokens imply more compact tokenization.",
-    uniqueTokenRatio:
-      "Shows the proportion of unique tokens relative to total tokens. Higher ratios reflect more diverse tokenization.",
-    processingTimeMs:
-      "Time (in milliseconds) taken to process and tokenize the input text.",
-    specialCharTokens:
-      "Number of tokens that contain special characters like punctuation or symbols.",
-    memoryUsageBytes:
-      "Amount of memory consumed during tokenization, measured in kilobytes.",
-  };
-
-  const MetricTooltip = ({ metricKey }: { metricKey: keyof typeof metricTooltips }) => {
-    const [isVisible, setIsVisible] = useState(false);
-
-    return (<Tooltip>
-      <TooltipTrigger setIsVisible={setIsVisible}>
-        <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer" />
-      </TooltipTrigger>
-
-      <TooltipContent isVisible={isVisible}>{metricTooltips[metricKey]}</TooltipContent>
-    </Tooltip>)
-  }
 
 
   return (
