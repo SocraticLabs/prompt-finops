@@ -27,11 +27,14 @@ function computeROI(
   const ragMonthly = ragCosts.totalMonthlyCost;
 
   const costDifference = ceMonthly - ragMonthly;
+
+  const moreExpensive = Math.max(ceMonthly, ragMonthly);
+  const cheaper = Math.min(ceMonthly, ragMonthly);
   const costReductionPercent =
-    ceMonthly > 0 ? (costDifference / ceMonthly) * 100 : 0;
+    moreExpensive > 0 ? ((moreExpensive - cheaper) / moreExpensive) * 100 : 0;
 
   let recommendedApproach: IROIComparison["recommendedApproach"];
-  if (Math.abs(costReductionPercent) < 1) {
+  if (costReductionPercent < 1) {
     recommendedApproach = "equivalent";
   } else if (ragMonthly < ceMonthly) {
     recommendedApproach = "rag";

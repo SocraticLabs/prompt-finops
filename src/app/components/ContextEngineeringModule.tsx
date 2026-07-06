@@ -231,6 +231,7 @@ export default function ContextEngineeringModule({
                 {tokenResult && (
                   <button
                     onClick={() => {
+                      setTokenResult(null);
                       setInputTokens(initialInputTokensValue);
                       setOutputTokens(initialInputTokensValue / 2);
                     }}
