@@ -1,4 +1,4 @@
-import { IModelPricing } from "@/types/types";
+import { IModelPricing, IEmbeddingModelPricing, IVectorDbPricing } from "@/types/types";
 
 /**
  * @description: Hardcoded Model pricing information
@@ -49,5 +49,55 @@ export const MODEL_PRICING: IModelPricing[] = [
     outputPrice: 0.0005,
     contextWindow: 8192,
     provider: "Google",
+  },
+];
+
+/** Embedding model pricing (price per 1 million tokens) */
+export const EMBEDDING_MODEL_PRICING: IEmbeddingModelPricing[] = [
+  {
+    model: "text-embedding-3-small",
+    provider: "OpenAI",
+    pricePerMillionTokens: 0.02,
+    dimensions: 1536,
+  },
+  {
+    model: "text-embedding-3-large",
+    provider: "OpenAI",
+    pricePerMillionTokens: 0.13,
+    dimensions: 3072,
+  },
+  {
+    model: "text-embedding-ada-002",
+    provider: "OpenAI",
+    pricePerMillionTokens: 0.1,
+    dimensions: 1536,
+  },
+];
+
+/** Vector database pricing – storage cost per GB/month and query cost per 1 000 queries */
+export const VECTOR_DB_PRICING: IVectorDbPricing[] = [
+  {
+    name: "Pinecone Serverless",
+    provider: "Pinecone",
+    storagePerGBPerMonth: 0.33,
+    queryPer1000: 0.08,
+  },
+  {
+    name: "Weaviate Cloud",
+    provider: "Weaviate",
+    storagePerGBPerMonth: 0.05,
+    queryPer1000: 0,
+  },
+  {
+    name: "Chroma (self-hosted)",
+    provider: "Chroma",
+    storagePerGBPerMonth: 0,
+    queryPer1000: 0,
+  },
+  {
+    name: "Qdrant Cloud",
+    provider: "Qdrant",
+    storagePerGBPerMonth: 0.07,
+    queryPer1000: 0,
   },
 ];
