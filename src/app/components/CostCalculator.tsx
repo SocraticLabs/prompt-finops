@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { ElementType, useState } from "react";
 import { Cpu, Database, TrendingUp } from "lucide-react";
 import ContextEngineeringModule from "./ContextEngineeringModule";
 import RAGCostModule from "./RAGCostModule";
@@ -8,7 +8,7 @@ import { IContextEngineeringMetrics, IRAGPipelineCosts } from "@/types/types";
 
 type Tab = "context-engineering" | "rag-architecture" | "roi-benchmark";
 
-const TABS: { id: Tab; label: string; Icon: React.ElementType }[] = [
+const TABS: { id: Tab; label: string; Icon: ElementType }[] = [
   { id: "context-engineering", label: "Context Engineering", Icon: Cpu },
   { id: "rag-architecture", label: "RAG Architecture", Icon: Database },
   { id: "roi-benchmark", label: "ROI Benchmark", Icon: TrendingUp },
