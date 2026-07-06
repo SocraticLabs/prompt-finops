@@ -58,8 +58,9 @@ export default function RAGCostModule({ onCostsChange }: RAGCostModuleProps) {
     // Vector DB cost
     const vectorDbStorageCostMonthly =
       vectorDbStorageGb * selectedVectorDb.storagePerGBPerMonth;
-    const retrievalCostPerQuery =
-      (selectedVectorDb.queryPer1000 / 1000);
+    const vectorDbStorageCostPerQuery =
+      queriesPerMonth > 0 ? vectorDbStorageCostMonthly / queriesPerMonth : 0;
+    const retrievalCostPerQuery = selectedVectorDb.queryPer1000 / 1000;
 
     // Context injection: retrieved chunks add tokens to the LLM prompt
     const injectedContextTokens = chunksPerQuery * avgChunkSizeTokens;
@@ -73,8 +74,10 @@ export default function RAGCostModule({ onCostsChange }: RAGCostModuleProps) {
     const llmCostPerQuery = llmInputCost + llmOutputCost;
 
     const totalCostPerQuery =
-      embeddingCostPerQuery + retrievalCostPerQuery + llmCostPerQuery;
-
+      embeddingCostPerQuery +
+      vectorDbStorageCostPerQuery +
+      retrievalCostPerQuery +
+      llmCostPerQuery;
     const totalMonthlyCost =
       embeddingCostMonthly +
       vectorDbStorageCostMonthly +
