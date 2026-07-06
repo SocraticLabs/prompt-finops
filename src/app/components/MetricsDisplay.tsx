@@ -31,8 +31,7 @@ const metricTooltips = {
   specialCharTokens:
     "Number of tokens that contain special characters like punctuation or symbols.",
   memoryUsageBytes:
-    "Amount of memory consumed during tokenization, measured in kilobytes.",
-};
+    "Estimated memory consumed during tokenization, measured in bytes (displayed as KB).",
 
 function MetricTooltip({ metricKey }: { metricKey: keyof typeof metricTooltips }) {
   const [isVisible, setIsVisible] = useState(false);
